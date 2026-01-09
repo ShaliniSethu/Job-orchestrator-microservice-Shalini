@@ -1,8 +1,10 @@
-# Flask CI/CD Demo (Docker + GitHub Actions + GHCR)
+# Job Orchestrator Microservice (Docker + GitHub Actions + GHCR)
 
 ## Endpoints
 - `GET /` returns a hello message
 - `GET /health` returns `{ "status": "ok" }`
+- `GET /tasks` returns a list of Jobs
+- `GET /tasks/id` returns the details of that Job
 
 ## Run locally
 ```bash
