@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from uuid import uuid4
 from typing import Any, Dict, Optional
 
-from flask import Flask, jsonify, request, g
+from flask import Flask, jsonify, request, g, render_template
 
 app = Flask(__name__)
 
@@ -97,7 +97,7 @@ def row_to_task(row: sqlite3.Row) -> Dict[str, Any]:
 
 @app.get("/")
 def home():
-    return jsonify(message="Job Orchestrator is running, routes available /health, /tasks, /tasks/<task_id>"), 200
+    return render_template("index.html")
 
 
 @app.get("/health")

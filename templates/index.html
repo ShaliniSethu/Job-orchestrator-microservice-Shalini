@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Job Orchestrator API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            max-width: 900px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .endpoint {
+            font-family: monospace;
+            margin-left: 20px;
+        }
+
+        .status {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Job Orchestrator API</h1>
+
+    <p>
+        A lightweight Flask microservice for creating, tracking,
+        and updating background jobs and tasks.
+    </p>
+
+    <p>Status: <span class="status">Running</span></p>
+
+    <h2>Available Endpoints</h2>
+    <div class="endpoint">POST &nbsp;&nbsp;/tasks    --     adds a new job</div>
+    <div class="endpoint">GET &nbsp;&nbsp;&nbsp;/tasks   --   retrieves all jobs</div>
+    <div class="endpoint">GET &nbsp;&nbsp;&nbsp;/tasks/&lt;task_id&gt;   --   retrieves a specific job, can filtered by status</div>
+    <div class="endpoint">PATCH /tasks/&lt;task_id&gt;    --   updates a specific job</div>
+    <div class="endpoint">DELETE /tasks/&lt;task_id&gt;   --   deletes a specific job</div>
+    <div class="endpoint">GET &nbsp;&nbsp;&nbsp;/health   --   health check endpoint</div>
+
+    <h2>Quick Example</h2>
+    <pre>
+        curl -X POST http://localhost:8080/tasks \\
+         -H "Content-Type: application/json" \\
+         -d '{"name": "Generate report", "job_type": "reports", "created_by": "user123", "payload": {"report_id": 123}}'
+    </pre>
+
+    <h2>Notes</h2>
+    <ul>
+        <li>Backed by SQLite</li>
+        <li>Designed as an API-only microservice</li>
+        <li>Payloads stored as text for simplicity</li>
+        <li>Health endpoint intended for monitoring</li>
+    </ul>
+</body>
+
+</html>
