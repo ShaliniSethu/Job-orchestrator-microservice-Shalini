@@ -16,10 +16,11 @@ ALLOWED_STATUSES = {"pending", "running", "done", "failed"}
 def utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
-
+#standarise error response in json
 def make_error(message: str, status_code: int = 400):
     return jsonify({"error": message}), status_code
 
+#ensure the tasks table exists
 def ensure_schema(conn: sqlite3.Connection) -> None:
     conn.execute(
         """
@@ -40,13 +41,13 @@ def ensure_schema(conn: sqlite3.Connection) -> None:
     conn.commit()
 
     # Lightweight migration for existing DBs (adds missing columns)
-    cols = {row["name"] for row in conn.execute("PRAGMA table_info(tasks)").fetchall()}
+    #cols = {row["name"] for row in conn.execute("PRAGMA table_info(tasks)").fetchall()}
 
-    if "job_type" not in cols:
-        conn.execute("ALTER TABLE tasks ADD COLUMN job_type TEXT")
-    if "created_by" not in cols:
-        conn.execute("ALTER TABLE tasks ADD COLUMN created_by TEXT")
-    conn.commit()
+    #if "job_type" not in cols:
+      #  conn.execute("ALTER TABLE tasks ADD COLUMN job_type TEXT")
+    #if "created_by" not in cols:
+     #   conn.execute("ALTER TABLE tasks ADD COLUMN created_by TEXT")
+    #conn.commit()
 
 
 def get_db_path() -> str:

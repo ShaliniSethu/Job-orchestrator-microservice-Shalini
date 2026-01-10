@@ -35,15 +35,16 @@ def test_health():
 
 def test_create_task_returns_201_and_task_shape():
     client = app.test_client()
-    resp = client.post("/tasks", json={"name": "backup-db", "job-type": "db-backup", "payload": {"db": "prod"}})
+    resp = client.post("/tasks", json={"name": "backup-db", "job_type": "db-backup", "payload": {"db": "prod"}})
     assert resp.status_code == 201
 
+
     task = resp.get_json()
+    print(task)
     assert isinstance(task["id"], str) and task["id"]
     assert task["name"] == "backup-db"
     assert task["job_type"] == "db-backup"
     assert task["status"] == "pending"
-    # payload is stored as string in this minimal SQLite version
     assert "prod" in (task["payload"] or "")
     assert task["result"] is None
     assert task["error"] is None
